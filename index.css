@@ -235,3 +235,84 @@ a {
     background-color: #fffbeb;
     color: #f59e0b;
 }
+
+/* --- Màu sắc riêng cho từng loại card --- */
+.card.employees .card-icon {
+    background-color: #e0f2fe; /* light-blue-100 */
+    color: #0ea5e9; /* sky-500 */
+}
+.card.salary .card-icon {
+    background-color: #fffbeb; /* amber-100 */
+    color: #f59e0b; /* amber-500 */
+}
+.card.projects .card-icon {
+    background-color: #dcfce7; /* green-100 */
+    color: #22c55e; /* green-500 */
+}
+.card.departments .card-icon {
+    background-color: #e0e7ff; /* indigo-100 */
+    color: #6366f1; /* indigo-500 */
+}
+/* THÊM VÀO CUỐI FILE INDEX.CSS */
+
+.chart-card {
+    /* Kế thừa style từ .card (shadow, border-radius...) */
+    background-color: #fff;
+    padding: 1.5rem;
+    margin-top: 1.5rem; /* Thêm khoảng cách với các card ở trên */
+}
+
+.chart-card h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #333;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 450px; /* Giới hạn kích thước biểu đồ */
+    margin: 0 auto; /* Căn giữa */
+}
+/* THÊM VÀO CUỐI FILE INDEX.CSS */
+
+.eotm-widget {
+    display: flex;
+    align-items: center;
+    background-color: #fdfae5; /* Màu vàng nhạt */
+    border: 1px solid #f9e07f;
+    border-radius: 8px;
+    padding: 1.5rem;
+    width: 80%;
+    margin: 0 auto 1.5rem auto; /* Căn giữa và tạo khoảng cách */
+}
+
+.eotm-widget .fa-trophy {
+    font-size: 3rem;
+    color: #f59e0b; /* Màu vàng */
+    margin-right: 1.5rem;
+}
+
+.eotm-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.eotm-title {
+    font-size: 0.9rem;
+    color: #6b7280;
+    text-transform: uppercase;
+}
+
+#eotm-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1f2937;
+}
+
+#eotm-shifts {
+    font-size: 1rem;
+    color: #374151;
+}
