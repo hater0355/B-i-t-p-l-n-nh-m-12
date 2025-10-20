@@ -1,0 +1,173 @@
+/* --- Thiết lập cơ bản & Reset --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  background-color: #f3f4f6; /* Màu nền xám nhạt */
+  color: #1f2937; /* Màu chữ mặc định */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- Sidebar (Thanh điều hướng bên trái) --- */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 256px;
+  background-color: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  padding: 1rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #3b82f6; /* Màu xanh dương */
+}
+
+.sidebar-nav {
+  margin-top: 1.5rem;
+  flex: 1; /* Để nav chiếm hết không gian còn lại */
+  padding: 0 1rem;
+}
+
+.sidebar-footer {
+  padding: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  color: #374151; /* Màu chữ xám đậm */
+  margin-bottom: 0.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-item i {
+  margin-right: 0.75rem;
+  width: 20px;
+  text-align: center;
+}
+
+.sidebar-item:hover {
+  background-color: #f3f4f6; /* Màu nền khi di chuột vào */
+}
+
+.sidebar-item.active {
+  background-color: #3b82f6; /* Màu nền xanh */
+  color: #ffffff; /* Chữ màu trắng */
+  font-weight: bold;
+}
+
+/* --- Main Content (Nội dung chính) --- */
+.main-content {
+  margin-left: 256px; /* Bằng với chiều rộng của sidebar */
+  padding: 1.5rem;
+}
+
+.main-content h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/* --- Thẻ Card (Khung trắng chứa nội dung) --- */
+.card {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.card-header h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+/* --- Nút Bấm (Button) --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.btn i {
+  margin-right: 0.5rem;
+}
+
+.btn.btn-primary {
+  background-color: #3b82f6;
+  color: #ffffff;
+}
+
+.btn.btn-primary:hover {
+  background-color: #2563eb; /* Màu xanh đậm hơn khi di chuột */
+}
+
+/* Nút màu xanh lá (MỚI THÊM VÀO) */
+.btn.btn-success {
+  background-color: #22c55e; /* Tương đương bg-green-500 */
+  color: #ffffff;
+}
+
+.btn.btn-success:hover {
+  background-color: #16a34a; /* Tương đương hover:bg-green-600 */
+}
+
+/* Nút nhỏ cho Sửa/Xóa */
+.btn.btn-sm {
+    padding: 0.25rem 0.5rem;
+    margin-right: 0.25rem;
+}
+.btn.btn-sm i { margin-right: 0; }
+.btn-edit { background-color: #f59e0b; color: white; } /* Vàng */
+.btn-delete { background-color: #ef4444; color: white; } /* Đỏ */
+.btn-edit:hover { background-color: #d97706; }
+.btn-delete:hover { background-color: #dc2626; }
+
+/* --- Bảng Dữ liệu (Data Table) --- */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.data-table thead tr {
+  background-color: #f3f4f6;
+}
+
+.data-table th,
+.data-table td {
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+}
+
+.data-table td:last-child {
+    text-align: center;
+}

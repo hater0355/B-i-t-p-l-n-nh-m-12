@@ -1,0 +1,128 @@
+/* Toàn trang */
+html, body {
+  height: 100%;
+  background-color: #f0f2f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+}
+
+/* Container căn giữa */
+.container {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+/* Hộp đăng nhập */
+.login-box {
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-card {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 56px 48px; /* tăng padding ngang để các ô input không bị sát khung */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.login-card:hover {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo & tiêu đề */
+.logo-section {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.logo-circle {
+  margin: 0 auto 16px;
+  height: 64px;
+  width: 64px;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+}
+
+.logo-circle i {
+  color: #fff;
+  font-size: 28px;
+}
+
+.logo-section h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 8px 0;
+}
+
+.logo-section p {
+  color: #6b7280;
+  font-size: 15px;
+}
+
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* tăng khoảng cách giữa 2 ô */
+  margin-left: 20px;
+  align-items: flex-start;
+}
+
+/* Tăng nhẹ khoảng cách trong để input không dính label */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  padding: 0; /* đẩy nhẹ form tránh xát viền */
+}
+
+label {
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background-color: #f9fafb;
+  transition: 0.2s;
+  font-size: 15px;
+}
+
+input:focus {
+  background-color: #fff;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  outline: none;
+}
+
+/* Nút đăng nhập */
+.btn-login {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+  font-weight: 600;
+  padding: 14px 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.25s ease;
+}
+
+.btn-login:hover {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(37, 99, 235, 0.25);
+}

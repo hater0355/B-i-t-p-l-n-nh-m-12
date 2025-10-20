@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tính lương - HRM Pro</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="tinhluong.css">
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+  <div class="sidebar-header">HRM Pro</div>
+  <nav class="sidebar-nav">
+    <a href="indexBTL.html" class="sidebar-item">
+      <i class="fas fa-home"></i>Trang chủ
+    </a>
+    <a href="nhanvienBTL.html" class="sidebar-item">
+      <i class="fas fa-users"></i>Nhân viên
+    </a>
+    <a href="chamcongBTL.html" class="sidebar-item">
+      <i class="fas fa-clock"></i>Chấm công
+    </a>
+    <a href="tinhluong.html" class="sidebar-item">
+      <i class="fas fa-calculator"></i>Tính lương
+    </a>
+  </nav>
+  <div class="sidebar-footer">
+      <a href="login.html" class="sidebar-item">
+        <i class="fas fa-sign-out-alt"></i>Đăng xuất
+      </a>
+  </div>
+</aside>
+
+<main class="main-content" id="tinhluong-page">
+  <h1>Tính lương</h1>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Bảng lương tháng</h2>
+      <div class="controls" style="display: flex; align-items: center; gap: 10px;">
+          <input type="month" id="month-selector" class="btn" style="padding: 0.5rem 1rem;">
+          
+          <button class="btn btn-success">
+            <i class="fas fa-calculator"></i>Tính lương
+          </button>
+      </div>
+    </div>
+
+    <div class="card-body">
+        <table class="data-table">
+            <thead>
+              <tr>
+                <th>Mã NV</th>
+                <th>Họ tên</th>
+                <th>Số ca làm</th>    
+                <th>Lương 1 ca</th>    
+                <th>Thưởng</th>
+                <th>Tổng lương</th>
+              </tr>
+            </thead>
+            <tbody>
+              </tbody>
+        </table>
+    </div>
+  </div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
