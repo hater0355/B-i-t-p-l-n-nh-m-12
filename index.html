@@ -6,53 +6,63 @@
     <title>Trang chủ - HRM Pro</title>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-<!-- Sidebar -->
 <aside class="sidebar">
-  <div class="sidebar-header">HRM Pro</div>
-  <nav class="sidebar-nav">
-    <a href="index.html" class="sidebar-item">
-      <i class="fas fa-home"></i>Trang chủ
-    </a>
-    <a href="nhanvienBTL.html" class="sidebar-item">
-      <i class="fas fa-users"></i>Nhân viên
-    </a>
-    <a href="chamcongBTL.html" class="sidebar-item">
-      <i class="fas fa-clock"></i>Chấm công
-    </a>
-    <a href="tinhluong.html" class="sidebar-item">
-      <i class="fas fa-calculator"></i>Tính lương
-    </a>
-  </nav>
-  <div class="sidebar-footer">
-      <a href="login.html" class="sidebar-item">
-        <i class="fas fa-sign-out-alt"></i>Đăng xuất
-      </a>
-  </div>
+    <div class="sidebar-header">HRM Pro</div>
+    <nav class="sidebar-nav">
+        <a href="index.html" class="sidebar-item active">
+            <i class="fas fa-home"></i>Trang chủ
+        </a>
+        <a href="nhanvien.html" class="sidebar-item">
+            <i class="fas fa-users"></i>Nhân viên
+        </a>
+        <a href="chamcong.html" class="sidebar-item">
+            <i class="fas fa-clock"></i>Chấm công
+        </a>
+        <a href="tinhluong.html" class="sidebar-item">
+            <i class="fas fa-calculator"></i>Tính lương
+        </a>
+    </nav>
+    <div class="sidebar-footer">
+        <a href="login.html" class="sidebar-item">
+            <i class="fas fa-sign-out-alt"></i>Đăng xuất
+        </a>
+    </div>
 </aside>
 
-<!-- Main content -->
-<main class="main-content">
+<main class="main-content" id="index-page">
     <h1 class="page-title">Trang chủ</h1>
-
-    <!-- Dashboard cards (chỉ giữ layout, dữ liệu sẽ thêm sau) -->
+    
     <div class="cards-container">
-        <div class="card">
-            <div class="card-info">
-                <p class="card-label"></p>
-                <p class="card-number"></p>
-            </div>
-            <div class="card-icon">
-                <i class="fas"></i>
+        </div>
+
+    <div class="card chart-card">
+        <h2>Phân bổ lương tháng</h2>
+        <div class="chart-container">
+            <canvas id="salaryPieChart"></canvas>
+        </div>
+        </div> <div class="card chart-card">
+        <h2>Thành tích tháng</h2>
+        
+        <div class="eotm-widget">
+            <i class="fas fa-trophy"></i>
+            <div class="eotm-info">
+                <span class="eotm-title">Nhân viên của tháng</span>
+                <span id="eotm-name">Đang tính...</span>
+                <span id="eotm-shifts"></span>
             </div>
         </div>
-        <!-- Thêm card khác khi cần -->
-    </div>
-</main>
 
-<script src="script.js" defer></script>
+        <div class="chart-container" style="margin-top: 20px;">
+            <canvas id="shiftBarChart"></canvas>
+        </div>
+    </div>
+    </div>
+
+</main> <script src="script.js" defer></script>
 </body>
 </html>
-
