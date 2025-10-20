@@ -556,3 +556,229 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 });
+/* === THAY THẾ TOÀN BỘ KHỐI CODE TRANG CHỦ BẰNG CODE NÀY === */
+
+    // --- 5. CODE CHO TRANG CHỦ (CÓ CẢ 2 BIỂU ĐỒ + VINH DANH) ---
+    const indexPage = document.getElementById('index-page');
+    if (indexPage) {
+        console.log("Đang chạy code cho: Trang Chủ (Dashboard)");
+
+        (() => {
+            const NV_STORAGE_KEY = 'nhanvien_data_v1';
+            const CC_STORAGE_KEY = 'chamCongList_v1';
+            
+            // Lấy các phần tử DOM
+            const cardsContainer = indexPage.querySelector(".cards-container");
+            const pieChartCtx = indexPage.querySelector("#salaryPieChart")?.getContext('2d');
+            
+            // Lấy các phần tử DOM MỚI
+            const barChartCtx = indexPage.querySelector("#shiftBarChart")?.getContext('2d');
+            const eotmNameEl = indexPage.querySelector("#eotm-name");
+            const eotmShiftsEl = indexPage.querySelector("#eotm-shifts");
+            
+            let myPieChart = null; // Biến lưu trữ biểu đồ tròn
+            let myBarChart = null; // Biến lưu trữ biểu đồ cột
+
+            if (!cardsContainer || !pieChartCtx || !barChartCtx || !eotmNameEl) {
+                console.error("Thiếu các thành phần HTML trên trang chủ!");
+                return;
+            }
+
+            // --- Hàm định dạng tiền tệ ---
+            function formatCurrency(v) {
+                if (isNaN(v)) return '0 đ';
+                return Number(v).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+            }
+
+            // --- Hàm vẽ biểu đồ tròn (Pie Chart) ---
+            function renderPieChart(chartLabels, chartData) {
+                if (myPieChart) myPieChart.destroy(); // Hủy biểu đồ cũ
+                myPieChart = new Chart(pieChartCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: chartLabels,
+                        datasets: [{
+                            label: 'Lương tháng',
+                            data: chartData,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)',
+                                'rgba(255, 206, 86, 0.8)', 'rgba(75, 192, 192, 0.8)',
+                                'rgba(153, 102, 255, 0.8)', 'rgba(255, 159, 64, 0.8)'
+                            ],
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { position: 'top' },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.raw || 0;
+                                        const total = context.chart.getDatasetMeta(0).total;
+                                        const percentage = ((value / total) * 100).toFixed(1) + '%';
+                                        return `${label}: ${formatCurrency(value)} (${percentage})`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // --- Hàm vẽ biểu đồ cột (Bar Chart) MỚI ---
+            function renderBarChart(chartLabels, chartData) {
+                if (myBarChart) myBarChart.destroy(); // Hủy biểu đồ cũ
+                myBarChart = new Chart(barChartCtx, {
+                    type: 'bar', // Loại biểu đồ là cột
+                    data: {
+                        labels: chartLabels,
+                        datasets: [{
+                            label: 'Số ca làm',
+                            data: chartData,
+                            backgroundColor: 'rgba(75, 192, 192, 0.8)', // Màu xanh
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { display: false }, // Ẩn legend vì chỉ có 1 bộ dữ liệu
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.raw || 0;
+                                        return `${label}: ${value} ca`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Số ca' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // --- Hàm chính để tải và hiển thị dữ liệu ---
+            function updateDashboard() {
+                const employees = JSON.parse(localStorage.getItem(NV_STORAGE_KEY)) || [];
+                const chamCongList = JSON.parse(localStorage.getItem(CC_STORAGE_KEY)) || [];
+                
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = (now.getMonth() + 1).toString().padStart(2, '0');
+                const selectedMonth = `${year}-${month}`;
+
+                // Tính số ca làm của mỗi NV
+                const attendanceMap = new Map();
+                for (const record of chamCongList) {
+                    if (record.ngay.startsWith(selectedMonth)) {
+                        const count = attendanceMap.get(record.maNV) || 0;
+                        attendanceMap.set(record.maNV, count + 1);
+                    }
+                }
+
+                let totalPayroll = 0;
+                
+                // Chuẩn bị dữ liệu cho 2 biểu đồ
+                const pieChartLabels = [];
+                const pieChartData = [];
+                const barChartLabels = [];
+                const barChartData = [];
+                
+                // Chuẩn bị tìm nhân viên của tháng
+                let maxShifts = 0;
+                let bestEmployeeName = "Chưa có";
+
+                for (const emp of employees) {
+                    const salaryPerShift = emp.salary || 0; 
+                    const shiftsWorked = attendanceMap.get(emp.id) || 0;
+                    
+                    let bonus = 0;
+                    if (shiftsWorked >= 50) bonus = 500000;
+                    else if (shiftsWorked >= 40) bonus = 350000;
+                    else if (shiftsWorked >= 30) bonus = 200000;
+                    
+                    const totalSalary = (salaryPerShift * shiftsWorked) + bonus;
+                    totalPayroll += totalSalary;
+                    
+                    // Thêm dữ liệu Lương (nếu có lương)
+                    if (totalSalary > 0) {
+                        pieChartLabels.push(emp.name);
+                        pieChartData.push(totalSalary);
+                    }
+                    
+                    // Thêm dữ liệu Số Ca (nếu có làm)
+                    if (shiftsWorked > 0) {
+                        barChartLabels.push(emp.name);
+                        barChartData.push(shiftsWorked);
+                        
+                        // Tìm người làm nhiều ca nhất
+                        if (shiftsWorked > maxShifts) {
+                            maxShifts = shiftsWorked;
+                            bestEmployeeName = emp.name;
+                        }
+                    }
+                }
+
+                // --- 1. Hiển thị Card thông tin ---
+                const cardData = [
+                    {
+                        label: "Tổng số nhân viên",
+                        number: employees.length,
+                        icon: "fa-users",
+                        type: "employees"
+                    },
+                    {
+                        label: `Tổng lương tháng ${month}/${year}`,
+                        number: formatCurrency(totalPayroll),
+                        icon: "fa-wallet",
+                        type: "salary"
+                    }
+                ];
+
+                cardsContainer.innerHTML = "";
+                cardData.forEach(data => {
+                    const cardElement = document.createElement("div");
+                    cardElement.classList.add("card", data.type); 
+                    cardElement.innerHTML = `
+                        <div class="card-info">
+                            <p class="card-label">${data.label}</p>
+                            <p class="card-number">${data.number}</p>
+                        </div>
+                        <div class="card-icon">
+                            <i class="fas ${data.icon}"></i>
+                        </div>
+                    `;
+                    cardsContainer.appendChild(cardElement);
+                });
+                
+                // --- 2. Hiển thị Nhân viên của tháng ---
+                eotmNameEl.textContent = bestEmployeeName;
+                if (maxShifts > 0) {
+                    eotmShiftsEl.textContent = `Với ${maxShifts} ca làm`;
+                } else {
+                    eotmShiftsEl.textContent = "Chưa có ai làm ca nào";
+                }
+
+                // --- 3. Vẽ biểu đồ tròn (Lương) ---
+                renderPieChart(pieChartLabels, pieChartData);
+                
+                // --- 4. Vẽ biểu đồ cột (Số ca) ---
+                renderBarChart(barChartLabels, barChartData);
+            }
+            
+            updateDashboard(); // Chạy hàm khi tải trang
+
+        })(); // Kết thúc IIFE
+    }
+
+ // Kết thúc DOMContentLoaded
