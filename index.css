@@ -44,8 +44,8 @@ a {
 }
 
 .sidebar-logo {
-    width: 64px;
-    height: 64px;
+    width: 60px;
+    height: 60px;
     /* Đã bỏ margin-right */
     object-fit: contain;
     margin-right: 5px;
@@ -332,5 +332,6 @@ a {
     color: #374151;
 
 }
+
 
 
