@@ -30,14 +30,29 @@ a {
 }
 
 .sidebar-header {
-  padding: 1rem; /* Tương đương p-4 */
-  font-size: 1.25rem; /* Tương đương text-xl */
-  font-weight: 700; /* Tương đương font-bold */
-  color: #3b82f6; /* Tương đương text-blue-600 */
+    /* Chỉ giữ lại các thuộc tính font/màu */
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #5D4037; /* (Hoặc màu bạn đã chọn) */
+}
+.sidebar-brand-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;  
+    color: inherit;      
+    padding: 20px;          
+}
+
+.sidebar-logo {
+    width: 60px;
+    height: 60px;
+    /* Đã bỏ margin-right */
+    object-fit: contain;
+    margin-right: 5px;
 }
 
 .sidebar-nav {
-  margin-top: 1.5rem; /* Tương đương mt-6 */
+  margin-top: 8px; /* Tương đương mt-6 */
   flex: 1; /* Để nav chiếm hết không gian còn lại */
   padding: 0 1rem;
 }
@@ -70,6 +85,7 @@ a {
 .sidebar-item.active {
   background-color: #3b82f6; /* Tương đương bg-blue-500 */
   color: #ffffff; /* Tương đương text-white */
+  font-weight: bold;
 }
 
 /* --- Nội dung chính --- */
