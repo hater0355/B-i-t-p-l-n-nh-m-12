@@ -41,41 +41,40 @@
 </aside>
 
 <main class="main-content" id="tinhluong-page">
-  <h1>Tính lương</h1>
+    <h1>Tính lương</h1>
 
-  <div class="card">
-<div class="card-header">
-    <h2>Bảng lương tháng</h2>
-    <div class="controls">
-        <label for="month-selector">Xem tháng:</label>
-        <input type="month" id="month-selector" class="btn">
+    <div class="card"> <div class="card-header">
+            <h2>Bảng lương tháng</h2>
+            <div class="controls">
+                <label for="month-selector">Xem tháng:</label>
+                <input type="month" id="month-selector" class="btn">
+                <button class="btn btn-success">
+                    <i class="fas fa-calculator"></i>Tính lương
+                </button>
+            </div>
+        </div>
         
-        <button class="btn btn-success">
-            <i class="fas fa-calculator"></i>Tính lương
-        </button>
+        <div class="card-body">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Mã NV</th>
+                        <th>Họ tên</th>
+                        <th>Số ca làm</th>    
+                        <th>Lương 1 ca</th>    
+                        <th>Thưởng</th>
+                        <th>Tổng lương</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+        
     </div>
-</div>
-    </div>
-
-    <div class="card-body">
-        <table class="data-table">
-            <thead>
-              <tr>
-                <th>Mã NV</th>
-                <th>Họ tên</th>
-                <th>Số ca làm</th>    
-                <th>Lương 1 ca</th>    
-                <th>Thưởng</th>
-                <th>Tổng lương</th>
-              </tr>
-            </thead>
-            <tbody>
-              </tbody>
-        </table>
-    </div>
-  </div>
 </main>
 
 <script src="script.js"></script>
 </body>
+
 </html>
