@@ -1,17 +1,32 @@
 /* Toàn trang */
-html, body {
-  height: 100%;
-  background-color: #f0f2f5;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
+/* Trong file login.css */
+/* Trong file login.css */
+html {
+    height: 100%; /* <-- RẤT QUAN TRỌNG: Đảm bảo html cao 100% */
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    /* === Đặt ảnh nền động vào HTML === */
+    background-image: url('background.jpg'); /* <-- THAY TÊN ẢNH CỦA BẠN VÀO ĐÂY */
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 110% 110%; 
+    animation: slowPan 25s linear infinite alternate;
+}
+/* Trong file login.css */
+body {
+    height: 100%; /* <-- RẤT QUAN TRỌNG: body chiếm 100% của html */
+    
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    display: flex; /* Giữ lại để căn giữa form */
+    justify-content: center; /* Giữ lại để căn giữa form */
+    align-items: center; /* Giữ lại để căn giữa form */
 }
 
 /* Container căn giữa */
 .container {
-  min-height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 32px;
 }
 
@@ -73,8 +88,6 @@ form {
   display: flex;
   flex-direction: column;
   gap: 24px; /* tăng khoảng cách giữa 2 ô */
-  margin-left: 20px;
-  align-items: flex-start;
 }
 
 /* Tăng nhẹ khoảng cách trong để input không dính label */
@@ -110,6 +123,7 @@ input:focus {
 
 /* Nút đăng nhập */
 .btn-login {
+  width:100% ;
   background: linear-gradient(135deg, #3b82f6, #2563eb);
   color: white;
   font-weight: 600;
@@ -125,4 +139,15 @@ input:focus {
   background: linear-gradient(135deg, #2563eb, #1d4ed8);
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(37, 99, 235, 0.25);
+}
+/* THÊM VÀO CUỐI FILE LOGIN.CSS */
+@keyframes slowPan {
+    0% {
+        /* Bắt đầu ở góc trên bên trái */
+        background-position: 0% 0%;
+    }
+    100% {
+        /* Di chuyển đến góc dưới bên phải */
+        background-position: 100% 100%;
+    }
 }
