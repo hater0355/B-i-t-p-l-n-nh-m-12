@@ -1,153 +1,159 @@
-/* Toàn trang */
 /* Trong file login.css */
-/* Trong file login.css */
+
+/* === 1. NỀN ĐỘNG (Giữ nguyên) === */
 html {
-    height: 100%; /* <-- RẤT QUAN TRỌNG: Đảm bảo html cao 100% */
+    height: 100%;
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-    /* === Đặt ảnh nền động vào HTML === */
-    background-image: url('background.jpg'); /* <-- THAY TÊN ẢNH CỦA BẠN VÀO ĐÂY */
+    background-image: url('background.jpg'); /* <-- Đổi tên ảnh của bạn */
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 110% 110%; 
     animation: slowPan 25s linear infinite alternate;
 }
-/* Trong file login.css */
+
+/* === 2. CĂN GIỮA (Giữ nguyên) === */
 body {
-    height: 100%; /* <-- RẤT QUAN TRỌNG: body chiếm 100% của html */
-    
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100%;
     margin: 0;
-    display: flex; /* Giữ lại để căn giữa form */
-    justify-content: center; /* Giữ lại để căn giữa form */
-    align-items: center; /* Giữ lại để căn giữa form */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Container căn giữa */
 .container {
-  padding: 32px;
+    padding: 32px;
+    width: 100%;
 }
 
-/* Hộp đăng nhập */
 .login-box {
-  width: 100%;
-  max-width: 400px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto; 
 }
 
+/* === 3. KHUNG LOGIN (ĐÃ SỬA) === */
 .login-card {
-  background-color: #fff;
-  border-radius: 16px;
-  padding: 56px 48px; /* tăng padding ngang để các ô input không bị sát khung */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+    background-color: transparent; /* <-- LÀM TRONG SUỐT */
+    border-radius: 16px;
+    padding: 0; /* <-- BỎ PADDING */
+    box-shadow: none; /* <-- BỎ BÓNG ĐỔ */
+    
+    /* TÙY CHỌN: Thêm hiệu ứng kính mờ (nếu muốn) */
+    /* background-color: rgba(255, 255, 255, 0.1); */
+    /* backdrop-filter: blur(10px); */
+    /* border: 1px solid rgba(255, 255, 255, 0.2); */
 }
 
+/* KHÔNG CẦN :hover NỮA */
 .login-card:hover {
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
 }
 
-/* Logo & tiêu đề */
+/* === 4. LOGO & TIÊU ĐỀ (ĐÃ SỬA MÀU CHỮ) === */
 .logo-section {
-  text-align: center;
-  margin-bottom: 32px;
+    text-align: center;
+    margin-bottom: 32px;
 }
 
-.logo-circle {
-  margin: 0 auto 16px;
-  height: 64px;
-  width: 64px;
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
-}
-
-.logo-circle i {
-  color: #fff;
-  font-size: 28px;
+/* THAY THẾ BẰNG KHỐI NÀY */
+.main-logo-image {
+    max-width: 150px; /* Điều chỉnh kích thước logo */
+    height: auto;
+    margin: 0 auto 16px; /* Căn giữa và tạo khoảng cách */
+    display: block; /* Quan trọng để margin auto hoạt động */
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); /* Thêm bóng đổ cho logo nổi bật */
+    border-radius: 50%;
 }
 
 .logo-section h2 {
-  font-size: 32px;
-  font-weight: 700;
-  color: #1e293b;
-  margin: 8px 0;
+    font-size: 32px;
+    font-weight: 700;
+    color: #FFFFFF; /* <-- ĐỔI MÀU TRẮNG */
+    margin: 8px 0;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5); /* Thêm bóng đổ cho dễ đọc */
 }
 
 .logo-section p {
-  color: #6b7280;
-  font-size: 15px;
+    color: #f0f0f0; /* <-- ĐỔI MÀU TRẮNG NHẠT */
+    font-size: 15px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
-/* Form */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 24px; /* tăng khoảng cách giữa 2 ô */
-}
 
-/* Tăng nhẹ khoảng cách trong để input không dính label */
-.form-group {
-  display: flex;
-  flex-direction: column;
-  padding: 0; /* đẩy nhẹ form tránh xát viền */
-}
 
 label {
-  color: #374151;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 5px;
+    color: #f0f0f0; /* <-- ĐỔI MÀU TRẮNG NHẠT */
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+/* === 5. FORM (ĐÃ SỬA MÀU VÀ NỀN) === */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
+.form-group {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
 input {
-  width: 100%;
-  padding: 14px 16px;
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-  background-color: #f9fafb;
-  transition: 0.2s;
-  font-size: 15px;
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.5); /* <-- Border mờ */
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.2); /* <-- Nền mờ */
+    transition: 0.2s;
+    font-size: 15px;
+    color: #FFFFFF; /* <-- Chữ gõ vào màu trắng */
+    box-sizing: border-box;
+}
+
+/* Đổi màu chữ placeholder */
+input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
 }
 
 input:focus {
-  background-color: #fff;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-  outline: none;
+    background-color: rgba(255, 255, 255, 0.3); /* Sáng hơn khi focus */
+    border-color: #FFFFFF; /* Border trắng rõ khi focus */
+    box-shadow: none; /* Bỏ box-shadow xanh */
+    outline: none;
 }
 
-/* Nút đăng nhập */
+/* === 6. NÚT BẤM (Giữ nguyên) === */
 .btn-login {
-  width:100% ;
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
-  color: white;
-  font-weight: 600;
-  padding: 14px 16px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: all 0.25s ease;
+    width:100% ;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    font-weight: 600;
+    padding: 14px 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.25s ease;
+    box-sizing: border-box;
 }
 
 .btn-login:hover {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(37, 99, 235, 0.25);
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(37, 99, 235, 0.25);
 }
-/* THÊM VÀO CUỐI FILE LOGIN.CSS */
+
+/* === 7. KEYFRAMES (Giữ nguyên) === */
 @keyframes slowPan {
     0% {
-        /* Bắt đầu ở góc trên bên trái */
         background-position: 0% 0%;
     }
     100% {
-        /* Di chuyển đến góc dưới bên phải */
         background-position: 100% 100%;
     }
 }
