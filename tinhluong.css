@@ -30,14 +30,29 @@ a {
 }
 
 .sidebar-header {
-  padding: 1rem;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #3b82f6; /* Màu xanh dương */
+    /* Chỉ giữ lại các thuộc tính font/màu */
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #5D4037; /* (Hoặc màu bạn đã chọn) */
+}
+.sidebar-brand-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;  
+    color: inherit;      
+    padding: 20px;          
+}
+
+.sidebar-logo {
+    width: 60px;
+    height: 60px;
+    /* Đã bỏ margin-right */
+    object-fit: contain;
+    margin-right: 5px;
 }
 
 .sidebar-nav {
-  margin-top: 1.5rem;
+  margin-top: 8px;
   flex: 1; /* Để nav chiếm hết không gian còn lại */
   padding: 0 1rem;
 }
@@ -170,4 +185,89 @@ a {
 
 .data-table td:last-child {
     text-align: center;
+}
+/* --- THÊM VÀO CUỐI FILE STYLE.CSS --- */
+
+/* --- 1. CSS CHO POP-UP FORM (MODAL) --- */
+/* Lớp nền mờ */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+/* Khung trắng chứa form */
+.modal-box {
+    width: 420px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 18px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+}
+
+.modal-box h3 {
+    margin: 0 0 12px 0;
+}
+
+.modal-box .form-group {
+    margin-bottom: 8px;
+}
+
+.modal-box .form-group-full {
+    margin-bottom: 12px;
+}
+
+.modal-box .form-group label {
+    display: block; /* Giúp label luôn ở trên */
+}
+
+/* Định dạng chung cho các ô nhập liệu trong modal */
+.modal-box input[type="text"],
+.modal-box input[type="number"],
+.modal-box input[type="date"],
+.modal-box input[type="time"],
+.modal-box select {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Rất quan trọng */
+}
+
+.modal-box input[readonly] {
+    background: #eee;
+}
+
+.modal-box .form-actions {
+    text-align: right;
+    margin-top: 12px;
+}
+
+
+/* --- 2. CSS CHO CÁC NÚT ĐIỀU KHIỂN (HEADER) --- */
+.card-header .controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-header .controls label {
+    font-weight: 500;
+    color: #374151;
+}
+
+/* Định dạng cho ô chọn ngày/tháng để khớp với nút .btn */
+.btn[type="date"],
+.btn[type="month"] {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #374151;
+}
+.btn[type="date"]:hover,
+.btn[type="month"]:hover {
+    background-color: #f3f4f6; /* Hiệu ứng hover nhẹ */
 }

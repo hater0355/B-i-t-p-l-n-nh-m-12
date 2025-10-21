@@ -213,10 +213,11 @@ document.addEventListener('DOMContentLoaded', function() {
             renderTable();
         })(); // Kết thúc IIFE của trang Nhân viên
     }
-// --- 3. CODE CHO TRANG CHẤM CÔNG (CHỌN THEO CA) ---
+
+    // --- 3. CODE CHO TRANG CHẤM CÔNG (CÓ LỌC NGÀY) ---
     const chamCongPage = document.getElementById('chamcong-page');
     if (chamCongPage) {
-        console.log("Đang chạy code cho: Trang Chấm Công (Chọn Ca)");
+        console.log("Đang chạy code cho: Trang Chấm Công (Lọc Ngày)");
 
         (() => {
             const CC_STORAGE_KEY = 'chamCongList_v1';
@@ -224,9 +225,12 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const tableBody = chamCongPage.querySelector(".data-table tbody");
             const addBtn = chamCongPage.querySelector(".btn-primary");
+            
+            // *** MỚI: Lấy bộ lọc ngày ***
+            const dateFilter = chamCongPage.querySelector("#date-filter");
 
-            if (!tableBody || !addBtn) {
-                console.error("Không tìm thấy nút hoặc bảng cho trang Chấm Công!");
+            if (!tableBody || !addBtn || !dateFilter) {
+                console.error("Thiếu các thành phần HTML trên trang Chấm Công!");
                 return;
             }
             
@@ -240,25 +244,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 return String(s).replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
             }
 
-            // Hàm renderTable MỚI (bỏ giờ vào/ra, trạng thái)
+            // --- Hàm renderTable (Đã cập nhật) ---
             function renderTable() {
+                // Lấy ngày đang được chọn
+                const selectedDate = dateFilter.value;
                 tableBody.innerHTML = "";
-                chamCongList.forEach((item, index) => {
+
+                // Lọc danh sách chấm công theo ngày
+                const filteredList = chamCongList.filter(item => item.ngay === selectedDate);
+                
+                // Chỉ hiển thị danh sách đã lọc
+                filteredList.forEach((item, index) => {
+                    // Cần tìm index gốc trong mảng chamCongList để Sửa/Xóa cho đúng
+                    const originalIndex = chamCongList.findIndex(originalItem => 
+                        originalItem.maNV === item.maNV && 
+                        originalItem.ngay === item.ngay && 
+                        originalItem.ca === item.ca
+                    );
+
                     const tr = document.createElement("tr");
                     tr.innerHTML = `
                         <td>${escapeHtml(item.maNV)}</td>
                         <td>${escapeHtml(item.hoTen)}</td>
                         <td>${escapeHtml(item.ngay)}</td>
-                        <td>${escapeHtml(item.ca)}</td> <td>
-                            <button class="btn btn-sm btn-edit" data-index="${index}" title="Sửa ca"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-delete" data-index="${index}" title="Xóa"><i class="fas fa-trash"></i></button>
+                        <td>${escapeHtml(item.ca)}</td>
+                        <td>
+                            <button class="btn btn-sm btn-edit" data-index="${originalIndex}" title="Sửa ca"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-delete" data-index="${originalIndex}" title="Xóa"><i class="fas fa-trash"></i></button>
                         </td>
                     `;
                     tableBody.appendChild(tr);
                 });
             }
 
-            // KHÔNG CẦN HÀM tinhTrangThai nữa
 
             // --- Modal Logic ---
             let modal = null;
@@ -272,12 +290,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 const box = document.createElement('div');
                 box.className = 'cc-modal-box';
+                // ... (style của box giữ nguyên) ...
                 Object.assign(box.style, {
                     width: '420px', background: '#fff', borderRadius: '8px', padding: '18px',
                     boxShadow: '0 6px 24px rgba(0,0,0,0.2)'
                 });
 
-                // Form HTML MỚI với dropdown chọn ca
+                // Form HTML
                 box.innerHTML = `
                     <h3 style="margin:0 0 12px 0">Thêm / Sửa Chấm Công</h3>
                     <form id="cc-form">
@@ -288,10 +307,9 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </select>
                             </label>
                         </div>
-                        
                         <div style="margin-bottom:8px"><label>Mã NV<br><input name="maNV" readonly style="width:100%;padding:6px;background:#eee"></label></div>
                         <div style="margin-bottom:8px"><label>Họ tên<br><input name="hoTen" readonly style="width:100%;padding:6px;background:#eee"></label></div>
-
+                        
                         <div style="margin-bottom:8px"><label>Ngày<br><input name="ngay" type="date" required style="width:100%;padding:6px"></label></div>
                         
                         <div style="margin-bottom:8px">
@@ -304,7 +322,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </select>
                             </label>
                         </div>
-                        
                         <div style="text-align:right; margin-top: 12px;">
                             <button type="button" id="cc-cancel" class="btn">Hủy</button>
                             <button type="submit" class="btn btn-primary" id="cc-submit">Lưu</button>
@@ -335,6 +352,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let currentMode = 'add';
             let editIndex = -1;
 
+            // --- Hàm openForm (Đã cập nhật) ---
             function openForm(mode = 'add', idx = -1) {
                 currentMode = mode;
                 editIndex = idx;
@@ -362,14 +380,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     form.querySelector('[name="maNV"]').value = item.maNV;
                     form.querySelector('[name="hoTen"]').value = item.hoTen;
                     form.querySelector('[name="ngay"]').value = item.ngay;
-                    form.querySelector('[name="shiftSelect"]').value = item.ca; // Điền ca đã chọn
+                    form.querySelector('[name="shiftSelect"]').value = item.ca;
                     
                     employeeSelect.disabled = true;
-                    form.querySelector('[name="ngay"]').disabled = true;
-
+                    form.querySelector('[name="ngay"]').disabled = true; // Không cho sửa ngày
                 } else {
+                    // *** MỚI: Tự động điền ngày đang xem vào form ***
+                    form.querySelector('[name="ngay"]').value = dateFilter.value;
+                    
                     employeeSelect.disabled = false;
-                    form.querySelector('[name="ngay"]').disabled = false;
+                    form.querySelector('[name="ngay"]').disabled = false; // Cho phép sửa ngày khi thêm
                 }
                 modal.style.display = 'flex';
             }
@@ -380,7 +400,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 editIndex = -1;
             }
 
-            // Hàm submit MỚI
             function handleFormSubmit(e) {
                 e.preventDefault();
                 const form = e.target;
@@ -388,18 +407,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 const maNV = form.querySelector('[name="maNV"]').value.trim();
                 const hoTen = form.querySelector('[name="hoTen"]').value.trim();
                 const ngay = form.querySelector('[name="ngay"]').value;
-                const ca = form.querySelector('[name="shiftSelect"]').value; // Lấy ca đã chọn
+                const ca = form.querySelector('[name="shiftSelect"]').value;
 
-                if (!maNV || !hoTen) {
-                    alert('Vui lòng chọn một nhân viên.');
+                if (!maNV || !hoTen || !ngay || !ca) {
+                    alert('Vui lòng nhập đầy đủ thông tin.');
                     return;
                 }
-                if (!ngay || !ca) {
-                    alert('Vui lòng chọn ngày và ca làm.');
-                    return;
-                }
-
-                // Tạo object mới chỉ gồm 4 trường
+                
                 const newItem = {
                     maNV: escapeHtml(maNV),
                     hoTen: escapeHtml(hoTen),
@@ -414,12 +428,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     chamCongList.push(newItem);
                 } else if (currentMode === 'edit' && editIndex >= 0) {
-                    // Khi sửa, ta chỉ cho sửa ca làm
                     chamCongList[editIndex].ca = newItem.ca;
                 }
 
                 saveData();
-                renderTable();
+                renderTable(); // Tự động render lại bảng cho ngày đang chọn
                 closeModal();
             }
 
@@ -427,10 +440,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (confirm("Bạn có chắc muốn xóa bản ghi chấm công này không?")) {
                     chamCongList.splice(index, 1);
                     saveData();
-                    renderTable();
+                    renderTable(); // Tự động render lại
                 }
             }
             
+            // --- Gắn sự kiện ---
             tableBody.addEventListener('click', function(event) {
                 const btn = event.target.closest('button');
                 if (!btn) return;
@@ -444,10 +458,25 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             addBtn.addEventListener("click", () => openForm('add'));
-            renderTable();
+            
+            // *** MỚI: Gắn sự kiện cho bộ lọc ngày ***
+            dateFilter.addEventListener('change', renderTable);
+            
+            // *** MỚI: Đặt ngày mặc định là hôm nay ***
+            function setDefaultDate() {
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = (now.getMonth() + 1).toString().padStart(2, '0');
+                const day = now.getDate().toString().padStart(2, '0');
+                dateFilter.value = `${year}-${month}-${day}`; // Format: YYYY-MM-DD
+            }
+            
+            setDefaultDate(); // Đặt ngày mặc định
+            renderTable(); // Render bảng lần đầu
 
-        })(); // Kết thúc IIFE
+        })(); // Kết thúc IIFE
     }
+
 // --- 4. CODE CHO TRANG TÍNH LƯƠNG (CÓ CHỌN THÁNG) ---
     const tinhLuongPage = document.getElementById('tinhluong-page');
     if (tinhLuongPage) {

@@ -30,14 +30,29 @@ a {
 }
 
 .sidebar-header {
-  padding: 1rem;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #3b82f6; /* Màu xanh dương */
+    /* Chỉ giữ lại các thuộc tính font/màu */
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #5D4037; /* (Hoặc màu bạn đã chọn) */
+}
+.sidebar-brand-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;  
+    color: inherit;      
+    padding: 20px;          
+}
+
+.sidebar-logo {
+    width: 60px;
+    height: 60px;
+    /* Đã bỏ margin-right */
+    object-fit: contain;
+    margin-right: 5px;
 }
 
 .sidebar-nav {
-  margin-top: 1.5rem;
+  margin-top: 8px;
   flex: 1; /* Để nav chiếm hết không gian còn lại */
   padding: 0 1rem;
 }
