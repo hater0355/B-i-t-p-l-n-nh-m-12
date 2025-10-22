@@ -66,8 +66,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 tbody.innerHTML = '';
                 employees.forEach((emp, idx) => {
                     const tr = document.createElement('tr');
-                    
-                    // Thay Phòng ban thành Lương cơ bản (đã format)
                     tr.innerHTML = `
                         <td>${escapeHtml(emp.id)}</td>
                         <td>${escapeHtml(emp.name)}</td>
@@ -107,7 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     boxShadow: '0 6px 24px rgba(0,0,0,0.2)'
                 });
 
-                // Sửa Form: Thay Phòng ban thành Lương cơ bản
                 box.innerHTML = `
                     <h3 style="margin:0 0 12px 0">Thêm / Sửa nhân viên</h3>
                     <form id="nv-form">
@@ -195,13 +192,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         id: escapeHtml(id), 
                         name: escapeHtml(name), 
                         position: escapeHtml(position), 
-                        salary: salary // SỬA Ở ĐÂY
+                        salary: salary 
                     });
                 } else if (currentMode === 'edit' && editIndex >= 0) {
                     // Cập nhật 'salary'
                     employees[editIndex].name = escapeHtml(name);
                     employees[editIndex].position = escapeHtml(position);
-                    employees[editIndex].salary = salary; // SỬA Ở ĐÂY
+                    employees[editIndex].salary = salary; 
                 }
 
                 saveEmployees();
@@ -244,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return String(s).replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
             }
 
-            // --- Hàm renderTable (Đã cập nhật) ---
+            // --- Hàm renderTable  ---
             function renderTable() {
                 // Lấy ngày đang được chọn
                 const selectedDate = dateFilter.value;
@@ -290,7 +287,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 const box = document.createElement('div');
                 box.className = 'cc-modal-box';
-                // ... (style của box giữ nguyên) ...
                 Object.assign(box.style, {
                     width: '420px', background: '#fff', borderRadius: '8px', padding: '18px',
                     boxShadow: '0 6px 24px rgba(0,0,0,0.2)'
@@ -352,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let currentMode = 'add';
             let editIndex = -1;
 
-            // --- Hàm openForm (Đã cập nhật) ---
+            // --- Hàm openForm  ---
             function openForm(mode = 'add', idx = -1) {
                 currentMode = mode;
                 editIndex = idx;
@@ -383,9 +379,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     form.querySelector('[name="shiftSelect"]').value = item.ca;
                     
                     employeeSelect.disabled = true;
-                    form.querySelector('[name="ngay"]').disabled = true; // Không cho sửa ngày
+                    form.querySelector('[name="ngay"]').disabled = true; 
                 } else {
-                    // *** MỚI: Tự động điền ngày đang xem vào form ***
+                    // ***  Tự động điền ngày đang xem vào form ***
                     form.querySelector('[name="ngay"]').value = dateFilter.value;
                     
                     employeeSelect.disabled = false;
@@ -489,7 +485,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const tableBody = tinhLuongPage.querySelector(".data-table tbody");
             const calcBtn = tinhLuongPage.querySelector(".btn-success"); 
             
-            // *** MỚI: Lấy ô chọn tháng ***
+            // ***  Lấy ô chọn tháng ***
             const monthSelector = tinhLuongPage.querySelector("#month-selector");
 
             if (!tableBody || !calcBtn || !monthSelector) {
@@ -509,7 +505,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // --- Hàm chính để tính lương ---
             function calculateAndRenderPayroll() {
-                // *** MỚI: Lấy tháng được chọn (ví dụ: "2025-10") ***
+                // *** Lấy tháng được chọn (ví dụ: "2025-10") ***
                 const selectedMonth = monthSelector.value;
                 if (!selectedMonth) {
                     alert("Vui lòng chọn tháng để tính lương!");
@@ -522,7 +518,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // 2. Đếm số ca làm (attendanceMap)
                 const attendanceMap = new Map();
                 for (const record of chamCongList) {
-                    // *** MỚI: Chỉ đếm ca làm KHỚP với tháng đã chọn ***
+                    // ***  Chỉ đếm ca làm KHỚP với tháng đã chọn ***
                     // record.ngay có dạng "YYYY-MM-DD"
                     // selectedMonth có dạng "YYYY-MM"
                     if (record.ngay.startsWith(selectedMonth)) {
@@ -531,7 +527,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
 
-                tableBody.innerHTML = ""; // Xóa bảng cũ
+                tableBody.innerHTML = ""; 
 
                 // 3. Tính toán và hiển thị
                 for (const emp of employees) {
@@ -585,7 +581,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 });
-/* === THAY THẾ TOÀN BỘ KHỐI CODE TRANG CHỦ BẰNG CODE NÀY === */
 
     // --- 5. CODE CHO TRANG CHỦ (CÓ CẢ 2 BIỂU ĐỒ + VINH DANH) ---
     const indexPage = document.getElementById('index-page');
@@ -657,7 +652,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
 
-            // --- Hàm vẽ biểu đồ cột (Bar Chart) MỚI ---
+            // --- Hàm vẽ biểu đồ cột (Bar Chart)  ---
             function renderBarChart(chartLabels, chartData) {
                 if (myBarChart) myBarChart.destroy(); // Hủy biểu đồ cũ
                 myBarChart = new Chart(barChartCtx, {
@@ -809,5 +804,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
         })(); // Kết thúc IIFE
     }
-
- // Kết thúc DOMContentLoaded
