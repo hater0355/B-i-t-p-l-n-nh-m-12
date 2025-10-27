@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         console.log("Đang chạy code cho: Trang Login");
-        // ... (code trang login của bạn giữ nguyên) ...
         loginForm.addEventListener('submit', function(event) {
             event.preventDefault(); 
             const usernameInput = document.getElementById('username');
